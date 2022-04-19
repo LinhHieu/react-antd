@@ -2,14 +2,26 @@ import { Form, Input, Button, Checkbox  } from 'antd';
 import {  } from 'antd/lib/form/Form';
 import 'antd/dist/antd.css';
 import styled from 'styled-components';
+import AuthLayoutProps from '../../../layouts/AuthLayout';
 
-const LoginFrom = styled(Form)`
+
+const ForgotPasswordLink = styled.a`
     float: right;
+    color: #2ECF94;
+    &:hover {
+        color: #3DBEA3;
+    }
 `
 
-
-const LoginFromForgot = styled.a`
-    float: right;
+const RegisterLink = styled.a`
+    padding-top: 20px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: #2ECF94;
+    &:hover {
+        color: #3DBEA3;
+    }
 `
 
 const LoginCheckbox = styled(Checkbox)`
@@ -20,6 +32,14 @@ const LoginCheckbox = styled(Checkbox)`
         outline: none;
     }
 `
+const LoginButton = styled(Button)`
+    background: #2ECF94;
+    border-color: #2ECF94;
+    &:hover {
+        background: #3DBEA3;
+        border-color: #3DBEA3;
+    }
+`
 
 
 const Login = () => {
@@ -28,6 +48,7 @@ const Login = () => {
     }
 
     return (
+        <AuthLayoutProps>
         <Form onFinish={onSubmit} className="login-form" layout="vertical">
             <h1>Welcome back!</h1>
             <p>Sign in by entering information below</p>
@@ -53,17 +74,18 @@ const Login = () => {
             <Form.Item name="remember" valuePropName="checked" noStyle>
                 <LoginCheckbox>Remember me</LoginCheckbox>
             </Form.Item>
-                <LoginFromForgot className="login-form-forgot" href="">
+                <ForgotPasswordLink className="login-form-forgot" href="/ForgotPassword">
                 Forgot password
-                </LoginFromForgot>
+                </ForgotPasswordLink>
             </Form.Item>
             <Form.Item>
-                <Button type="primary" htmlType="submit" block className="login-form-button">
+                <LoginButton type="primary" htmlType="submit" block className="login-form-button">
                 Log in
-                </Button>
-                <a href="">register now!</a>
+                </LoginButton>
+                <RegisterLink href="/Register">REGISTER NEW ACCOUNT</RegisterLink>
             </Form.Item>
         </Form>
+        </AuthLayoutProps>
     ) 
 }
 

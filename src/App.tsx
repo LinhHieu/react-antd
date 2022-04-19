@@ -1,9 +1,9 @@
-import './App.css';
-import LoginMain from './component/LoginBackground/LoginMain';
+import './App.less';
 import {Routes, Route, BrowserRouter} from 'react-router-dom'
-import ForgotPassword from './page/ForgotPassword/ForgotPassword';
-import ResetPassword from './page/ResetPassword/ResetPassword';
-import Register from './page/Register/Register';
+import ForgotPassword from './page/auth/ForgotPassword/ForgotPassword';
+import ResetPassword from './page/auth/ResetPassword/ResetPassword';
+import Register from './page/auth/Register/Register';
+import Login from './page/auth/Login/Login';
 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<LoginMain />} />
+          <Route path='/Login' element={<Login />} />
           <Route path='/ForgotPassword' element={<ForgotPassword />} />
           <Route path='/ResetPassword' element={<ResetPassword />} />
           <Route path='/Register' element={<Register />} />
