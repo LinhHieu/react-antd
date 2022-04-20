@@ -46,7 +46,7 @@ const Register = () => {
         <AuthLayoutProps>
         <Form onFinish={onSubmit} className="login-form" layout="vertical">
             <h1>Register new account</h1>
-            <p>Have an account? <LoginLink href="">LOGIN NOW</LoginLink></p>
+            <p>Have an account? <LoginLink href="/Login">LOGIN NOW</LoginLink></p>
             <InlineInput>
                 <Form.Item label="Email" name="email" 
                 rules={[

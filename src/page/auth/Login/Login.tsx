@@ -1,13 +1,14 @@
-import { Form, Input, Button, Checkbox  } from 'antd';
-import {  } from 'antd/lib/form/Form';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import 'antd/dist/antd.css';
 import styled from 'styled-components';
 import AuthLayoutProps from '../../../layouts/AuthLayout';
+import { useNavigate } from 'react-router-dom';
 
+
+const axios = require('axios');
 
 const ForgotPasswordLink = styled.a`
     float: right;
-    color: #2ECF94;
     &:hover {
         color: #3DBEA3;
     }
@@ -18,7 +19,6 @@ const RegisterLink = styled.a`
     width: 100%;
     display: block;
     text-align: center;
-    color: #2ECF94;
     &:hover {
         color: #3DBEA3;
     }
@@ -26,30 +26,60 @@ const RegisterLink = styled.a`
 
 const LoginCheckbox = styled(Checkbox)`
     float: left;
-    .ant-checkbox-checked .ant-checkbox-inner {
-        background-color: #2ECF94;
-        border-color: #2ECF94;
-        outline: none;
-    }
 `
 const LoginButton = styled(Button)`
-    background: #2ECF94;
-    border-color: #2ECF94;
     &:hover {
         background: #3DBEA3;
         border-color: #3DBEA3;
     }
 `
+interface Loginvalue {
+    email: string,
+    password: string
+}
+
+interface LoginAPIResponse {
+    jwt: string;
+    user: User[];
+}
+
+interface User {
+    id:        number;
+    username:  string;
+    email:     string;
+    provider:  string;
+    confirmed: boolean;
+    blocked:   boolean;
+    createdAt: Date;
+    updatedAt: Date;
+  }
 
 
 const Login = () => {
-    const onSubmit = () => {
-        console.log("test")
+    const [form] = Form.useForm();
+    const navigate = useNavigate();
+
+
+    const onSubmit = (values:Loginvalue) => {
+        axios.post('http://localhost:1337/api/auth/local', {
+            identifier: values.email,
+            password: values.password
+          })
+          .then(function (response:any) {
+            console.log(response);
+            message.success('Login successfully');
+            const resJson:string = JSON.stringify(response?.data.jwt);
+            localStorage.setItem('Token', resJson);
+            navigate('/Buyer')
+          })
+          .catch(function (error: Error) {
+            message.error('Can not find user');
+          });
     }
 
     return (
         <AuthLayoutProps>
-        <Form onFinish={onSubmit} className="login-form" layout="vertical">
+        <Form onFinish={onSubmit} form={form} className="login-form" layout="vertical">
             <h1>Welcome back!</h1>
             <p>Sign in by entering information below</p>
             <Form.Item label="Email" name="email" 
@@ -72,7 +102,7 @@ const Login = () => {
             </Form.Item>
             <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-                <LoginCheckbox>Remember me</LoginCheckbox>
+                <LoginCheckbox checked={true}>Remember me</LoginCheckbox>
             </Form.Item>
                 <ForgotPasswordLink className="login-form-forgot" href="/ForgotPassword">
                 Forgot password
