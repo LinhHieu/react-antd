@@ -4,7 +4,7 @@ import ForgotPassword from './page/auth/ForgotPassword/ForgotPassword';
 import ResetPassword from './page/auth/ResetPassword/ResetPassword';
 import Register from './page/auth/Register/Register';
 import Login from './page/auth/Login/Login';
-import BuyerManagement from './page/buyer/BuyerManagement/BuyerManagement';
+import Buyer from './page/buyer/Buyer/Buyer';
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/Buyer' element={<BuyerManagement />} />
+          <Route path='/Buyer' element={<Buyer/>} />
           <Route path='/Login' element={<Login />} />
           <Route path='/ForgotPassword' element={<ForgotPassword />} />
           <Route path='/ResetPassword' element={<ResetPassword />} />

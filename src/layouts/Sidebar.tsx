@@ -24,23 +24,23 @@ const SidebarLogo = styled.img`
     margin-right: auto;
 `
 const MenuSidebar = styled(Menu)`
-    height: 100vh;
+    height: 96vh;
     background-color: #2ECF94;
-    margin: 20px 20px 20px 20px;
+    margin: 15px 15px 15px 15px;
     border-radius: 25px;
     .ant-menu-item-selected {
     background-color: #3DBEA3 !important;
   }
 `
-const SiteHeader = styled(Layout)`
-    background: #fff;
-`
-const SiteSider = styled(Sider)`
-    background: #fff;
-    .ant-layout-sider-trigger{
-        background: gray;
-    }
-`
+// const SiteHeader = styled(Layout)`
+//     background: #fff;
+// `
+// const SiteSider = styled(Sider)`
+//     background: #fff;
+//     .ant-layout-sider-trigger{
+//         background: gray;
+//     }
+// `
 
 const SpanText = styled.span`
     color: #fff;
@@ -55,11 +55,11 @@ export default function Sidebar({children}: AuthLayoutProps) {
       };
 
     return(
-        <Layout style={{
-            minHeight: '100vh',
-          }}>
-            <SiteSider collapsible collapsed={collapsed} onCollapse={onCollapse} breakpoint="xs" width={260} collapsedWidth={120} trigger={null}>
-            <div className="logo" />
+        // <Layout style={{
+        //     minHeight: '100vh',
+        //   }}>
+        //     <SiteSider collapsible collapsed={collapsed} onCollapse={onCollapse} breakpoint="xs" width={260} collapsedWidth={120} trigger={null}>
+        //     <div className="logo" />
             <MenuSidebar>
                 <SidebarLogo src={logo} />
                 <Menu.Item>
@@ -87,8 +87,8 @@ export default function Sidebar({children}: AuthLayoutProps) {
                     <SpanText>Notification</SpanText>
                 </Menu.Item>
             </MenuSidebar>
-            </SiteSider>
-            <Layout >
+            //</SiteSider>
+            /* <Layout >
                 <SiteHeader
                 className="site-layout-background"
                 style={{
@@ -104,8 +104,8 @@ export default function Sidebar({children}: AuthLayoutProps) {
                 <Footer>
 
                 </Footer>
-            </Layout>
-        </Layout>
+            </Layout> */
+        //</Layout>
         
     )
 }
