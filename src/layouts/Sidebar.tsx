@@ -16,36 +16,59 @@ interface AuthLayoutProps {
 }
 
 const SidebarLogo = styled.img`
-    margin: 16px;
     height: 40px;
     width: 60px;
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
 `
 const MenuSidebar = styled(Menu)`
     height: 96vh;
     background-color: #2ECF94;
     margin: 15px 15px 15px 15px;
     border-radius: 25px;
+    color: white;
+    .ant-menu-item{
+        height: 50px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+  }
     .ant-menu-item-selected {
     background-color: #3DBEA3 !important;
+    color: white!important;
+  }
+  .ant-menu-item:hover{
+    color: white!important;
   }
 `
-// const SiteHeader = styled(Layout)`
-//     background: #fff;
-// `
-// const SiteSider = styled(Sider)`
-//     background: #fff;
-//     .ant-layout-sider-trigger{
-//         background: gray;
-//     }
-// `
+const SiteHeader = styled(Layout)`
+    background: #fff;
+`
+const SiteSider = styled(Sider)`
+    background: #F2F3F9;
+    .ant-layout-sider-trigger{
+        background: gray;
+    }
+`
 
 const SpanText = styled.span`
     color: #fff;
 `
 
+function getItem(label:any, key:any, icon:any, children:any) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    };
+  }
+  
+  const items = [
+    getItem(null, '1',<SidebarLogo src={logo} /> , null),
+    getItem('Option 1', '2', <PieChartOutlined />, null),
+    getItem('Option 2', '3', <DesktopOutlined />, null),
+    getItem('User', 'sub1', <UserOutlined />, null),
+    getItem('Team', 'sub2', <TeamOutlined />, null)
+  ];
 
 export default function Sidebar({children}: AuthLayoutProps) {
     const [collapsed, setCollapsed] = useState(false)
@@ -54,58 +77,22 @@ export default function Sidebar({children}: AuthLayoutProps) {
         setCollapsed(collapsed);
       };
 
+    const onClick = (e:any) => {
+        console.log('click ', e);
+      };
     return(
-        // <Layout style={{
-        //     minHeight: '100vh',
-        //   }}>
-        //     <SiteSider collapsible collapsed={collapsed} onCollapse={onCollapse} breakpoint="xs" width={260} collapsedWidth={120} trigger={null}>
-        //     <div className="logo" />
-            <MenuSidebar>
-                <SidebarLogo src={logo} />
-                <Menu.Item>
-                <PieChartOutlined style={{color: '#fff'}}/>
-                    <SpanText>Dashboard</SpanText>
-                </Menu.Item>
-                <Menu.Item>
-                <PieChartOutlined style={{color: '#fff'}}/>
-                    <SpanText>Report & Analytics</SpanText>
-                </Menu.Item>
-                <Menu.Item>
-                    <FileOutlined style={{color: '#fff'}}/>
-                    <SpanText>Supplier</SpanText>
-                </Menu.Item>
-                <Menu.Item>
-                    <FileOutlined style={{color: '#fff'}}/>
-                    <SpanText>Form</SpanText>
-                </Menu.Item>
-                <Menu.Item>
-                    <FileOutlined style={{color: '#fff'}}/>
-                    <SpanText>Support</SpanText>
-                </Menu.Item>
-                <Menu.Item>
-                    <FileOutlined style={{color: '#fff'}}/>
-                    <SpanText>Notification</SpanText>
-                </Menu.Item>
-            </MenuSidebar>
-            //</SiteSider>
-            /* <Layout >
-                <SiteHeader
-                className="site-layout-background"
-                style={{
-                padding: 0,
-                maxHeight: 85
-                }}
-            />
-                <Content style={{
-              margin: '0 16px',
-            }}>
-                    {children}
-                </Content>
-                <Footer>
-
-                </Footer>
-            </Layout> */
-        //</Layout>
+        <Layout style={{
+            minHeight: '100vh',
+          }}>
+            <SiteSider collapsible collapsed={collapsed} onCollapse={onCollapse} breakpoint="xs" width={260} collapsedWidth={120} trigger={null}>
+            
+        <MenuSidebar
+        onClick={onClick}
+        items={items}
+       />
+            </SiteSider>
+            {children}
+        </Layout>
         
     )
 }
