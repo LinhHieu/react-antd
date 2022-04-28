@@ -66,7 +66,6 @@ const Login = () => {
             password: values.password
           })
           .then(function (response:any) {
-            console.log(response);
             message.success('Login successfully');
             const resJson:string = JSON.stringify(response?.data.jwt);
             localStorage.setItem('Token', resJson);
