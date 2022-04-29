@@ -1,6 +1,6 @@
 import { Layout, Space } from "antd";
 import Sidebar from "../../../layouts/Sidebar";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {SiteSider, SiteHeader } from '../MainPageStyle';
 import styled from 'styled-components';
 import Usercheck from "../../../Assets/usercheck.png";
@@ -10,6 +10,7 @@ import SupplierChart from "./SupplierChart";
 
 const { Header, Content, Footer, Sider } = Layout;
 
+const axios = require('axios');
 
 const NumberAnalytic = styled.div`
     display: flex;
@@ -95,20 +96,31 @@ const ContentPage = styled(Content)`
 
 
 const Buyer = () => {
-    const [collapsed, setCollapsed] = useState(false)
+
+    const [userData, setUserData] = useState([]);
+    const [collapsed, setCollapsed] = useState(false);
+
     const onCollapse = (collapsed: boolean) => {
         console.log(collapsed);
         setCollapsed(collapsed);
       };
+    useEffect(() => {
+        const token = localStorage.getItem("Token");
+                axios.get('http://localhost:1337/api/responses', {
+                headers: {'Authorization': `Bearer ${token}` }
+                })
+                .then(function (response:any) {
+                console.log(response.data.data);
+                setUserData(response.data.data.slice());
+                console.log(userData);
+                })
+                .catch(function (error:any) {
+                console.log(error);
+                });
 
+            
+        }, []);
     return(
-        // <Layout style={{
-        //     minHeight: '100vh',
-        //   }}>
-        //       <SiteSider collapsible collapsed={collapsed} onCollapse={onCollapse} breakpoint="lg" width={260} collapsedWidth={120} trigger={null}>
-        //         <div className="logo" />
-        //         <Sidebar />
-        //         </SiteSider>
         <Sidebar>
             <Layout>
                 <SiteHeader>
@@ -153,7 +165,7 @@ const Buyer = () => {
                     <BodyInformationList>
                         <ChartInformation>
                             <ChartAnalytics>
-                                <SupplierChart />
+                                <SupplierChart userData={"aa"}/>
                             </ChartAnalytics>
                             <ChartAnalytics>
                                 Completed request

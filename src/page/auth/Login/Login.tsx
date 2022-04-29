@@ -59,7 +59,6 @@ const Login = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
 
-
     const onSubmit = (values:Loginvalue) => {
         axios.post('http://localhost:1337/api/auth/local', {
             identifier: values.email,
@@ -67,7 +66,7 @@ const Login = () => {
           })
           .then(function (response:any) {
             message.success('Login successfully');
-            const resJson:string = JSON.stringify(response?.data.jwt);
+            const resJson:string = response?.data.jwt;
             localStorage.setItem('Token', resJson);
             navigate('/Buyer')
           })
