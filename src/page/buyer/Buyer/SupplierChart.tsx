@@ -1,16 +1,11 @@
 import { Doughnut, Bar } from 'react-chartjs-2';
 import React, { useEffect, useState} from 'react';
+import {Chart as ChartJS} from "chart.js/auto";
 
 
-const SupplierChart = (props:any) => {
-  const [userData, setUserData] = useState()
-
-    
-
+const SupplierChart = () => {
     return(
-        <div>
-            {/* <Bar data={} options={}/> */}
-        </div>
+        <div></div>
     )
 }
 

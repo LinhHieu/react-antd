@@ -1,12 +1,13 @@
 import { Layout, Space } from "antd";
 import Sidebar from "../../../layouts/Sidebar";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {SiteSider, SiteHeader } from '../MainPageStyle';
 import styled from 'styled-components';
 import Usercheck from "../../../Assets/usercheck.png";
 import Supplier from "../../../Assets/supplier.png";
 import Formicon from "../../../Assets/formicon.png";
 import SupplierChart from "./SupplierChart";
+import RequiredActionList from "./RequiredActionList";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -93,33 +94,50 @@ const ActionList = styled.div`
 const ContentPage = styled(Content)`
     margin: 0 30px 0 20px;
 `
-
-
+interface Reponse {
+    id:         number;
+    SupplierName: string;
+    RequestDate:  Date;
+    Status:       string;
+    Form:         string;
+    createdAt:    Date;
+    updatedAt:    Date;
+    publishedAt:  Date;
+}
 const Buyer = () => {
-
-    const [userData, setUserData] = useState([]);
+    const [userData, setUserData] = useState<Reponse[]>([]);
     const [collapsed, setCollapsed] = useState(false);
-
+    const token = localStorage.getItem("Token");
     const onCollapse = (collapsed: boolean) => {
         console.log(collapsed);
         setCollapsed(collapsed);
       };
-    useEffect(() => {
-        const token = localStorage.getItem("Token");
-                axios.get('http://localhost:1337/api/responses', {
-                headers: {'Authorization': `Bearer ${token}` }
-                })
-                .then(function (response:any) {
-                console.log(response.data.data);
-                setUserData(response.data.data.slice());
-                console.log(userData);
-                })
-                .catch(function (error:any) {
-                console.log(error);
-                });
 
-            
-        }, []);
+        useEffect(() => {
+            axios.get('http://localhost:1337/api/responses', {
+            headers: {'Authorization': `Bearer ${token}` }
+            })
+            .then(function (response:any) {
+                const ResponeValue = response.data.data;
+                console.log(ResponeValue);
+                let DataList = ResponeValue.map((data:any) => {
+                    return {
+                        SupplierName: data.attributes.SupplierName,
+                        id: data.id,
+                        RequestDate: data.attributes.RequestDate,
+                        Status: data.attributes.Status,
+                        Form: data.attributes.Form,
+                        createdAt: data.attributes.createdAt,
+                        updatedAt: data.attributes.updatedAt,
+                        publishedAt: data.attributes.publishedAt,
+                    }
+                })
+                setUserData(DataList);
+            })
+            .catch(function (error:any) {
+            console.log(error);
+            });
+    }, []);
     return(
         <Sidebar>
             <Layout>
@@ -165,14 +183,13 @@ const Buyer = () => {
                     <BodyInformationList>
                         <ChartInformation>
                             <ChartAnalytics>
-                                <SupplierChart userData={"aa"}/>
+                                <SupplierChart />
                             </ChartAnalytics>
                             <ChartAnalytics>
-                                Completed request
                             </ChartAnalytics>
                         </ChartInformation>
                         <ActionList>
-                            list
+                            
                         </ActionList>
                     </BodyInformationList>
                 </ContentPage>
