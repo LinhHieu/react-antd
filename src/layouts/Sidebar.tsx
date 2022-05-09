@@ -23,7 +23,7 @@ const MenuSidebar = styled(Menu)`
     height: 96vh;
     background-color: #2ECF94;
     margin: 15px 15px 15px 15px;
-    border-radius: 25px;
+    border-radius: 10px;
     color: white;
     .ant-menu-item{
         height: 50px;
@@ -63,7 +63,7 @@ function getItem(label:any, key:any, icon:any, children:any) {
   }
   
   const items = [
-    getItem(null, '1',<SidebarLogo src={logo} /> , null),
+    getItem(null, '1',null , null),
     getItem('Option 1', '2', <PieChartOutlined />, null),
     getItem('Option 2', '3', <DesktopOutlined />, null),
     getItem('User', 'sub1', <UserOutlined />, null),

@@ -100,6 +100,7 @@ interface Reponse {
     RequestDate:  Date;
     Status:       string;
     Form:         string;
+    Email:        string;
     createdAt:    Date;
     updatedAt:    Date;
     publishedAt:  Date;
@@ -127,9 +128,7 @@ const Buyer = () => {
                         RequestDate: data.attributes.RequestDate,
                         Status: data.attributes.Status,
                         Form: data.attributes.Form,
-                        createdAt: data.attributes.createdAt,
-                        updatedAt: data.attributes.updatedAt,
-                        publishedAt: data.attributes.publishedAt,
+                        Email: data.attributes.Email,
                     }
                 })
                 setUserData(DataList);
@@ -189,7 +188,7 @@ const Buyer = () => {
                             </ChartAnalytics>
                         </ChartInformation>
                         <ActionList>
-                            
+                            <RequiredActionList data={userData} />
                         </ActionList>
                     </BodyInformationList>
                 </ContentPage>
