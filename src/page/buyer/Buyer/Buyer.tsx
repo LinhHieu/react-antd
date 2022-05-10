@@ -1,4 +1,4 @@
-import { Layout, Space } from "antd";
+import { Layout, Space, PageHeader, DatePicker } from "antd";
 import Sidebar from "../../../layouts/Sidebar";
 import { useState, useEffect, useCallback } from 'react';
 import {SiteSider, SiteHeader } from '../MainPageStyle';
@@ -26,7 +26,7 @@ const BodyInformationList = styled.div`
 const ChartInformation = styled.div`
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 32%;
 `
 const ChartAnalytics = styled.div`
     margin-top: 20px;
@@ -41,7 +41,7 @@ const NumberBox = styled.div`
     padding: 20px 20px;
     border-radius: 10px;
     background: #FFFFFF;
-    width: 30%;
+    width: 32%;
     height: 140px;
     display: flex;
     justify-content:space-between;
@@ -86,7 +86,7 @@ const ActionList = styled.div`
     padding: 20px 20px;
     border-radius: 10px;
     background: #FFFFFF;
-    width: 65%;
+    width: 66%;
     height: 620px;
 `
 
@@ -108,6 +108,7 @@ interface Reponse {
 const Buyer = () => {
     const [userData, setUserData] = useState<Reponse[]>([]);
     const [collapsed, setCollapsed] = useState(false);
+    const [Page, setPage] = useState(null);
     const token = localStorage.getItem("Token");
     const onCollapse = (collapsed: boolean) => {
         console.log(collapsed);
@@ -132,6 +133,7 @@ const Buyer = () => {
                     }
                 })
                 setUserData(DataList);
+                setPage(ResponeValue.meta.pagination.pageSize);
             })
             .catch(function (error:any) {
             console.log(error);
@@ -141,7 +143,7 @@ const Buyer = () => {
         <Sidebar>
             <Layout>
                 <SiteHeader>
-                    <h1><b>DashBoard</b></h1>
+                    <PageHeader title="Dashboard" extra={[<DatePicker.RangePicker />]}> </PageHeader>
                 </SiteHeader>
                 <ContentPage>
                     <NumberAnalytic>
@@ -188,7 +190,7 @@ const Buyer = () => {
                             </ChartAnalytics>
                         </ChartInformation>
                         <ActionList>
-                            <RequiredActionList data={userData} />
+                            <RequiredActionList data={userData} pageSize={Page}/>
                         </ActionList>
                     </BodyInformationList>
                 </ContentPage>
