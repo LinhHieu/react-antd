@@ -20,10 +20,10 @@ const SupplierManagement = () => {
             <Layout>
                 <SiteHeader>
                     <PageHeader title="Supplier management" extra={[
-                    <Search placeholder="input search text" onSearch={onSearch} style={{ borderRadius: "4px" }}/>,
-                    <StyledButton icon={<BarsOutlined />}>Filter</StyledButton>,
-                    <StyledButton icon={<PlusOutlined />}>Create new request</StyledButton>,
-                    <StyledButton type="primary" icon={<UserAddOutlined />}>Create new request</StyledButton>
+                    <Search key="1" placeholder="input search text" onSearch={onSearch} style={{ borderRadius: "4px" }}/>,
+                    <StyledButton key="2"  icon={<BarsOutlined />}>Filter</StyledButton>,
+                    <StyledButton key="3" icon={<PlusOutlined />}>Create new request</StyledButton>,
+                    <StyledButton key="4" type="primary" icon={<UserAddOutlined />}>Create new request</StyledButton>
                     ]}> </PageHeader>
                 </SiteHeader>
             </Layout>

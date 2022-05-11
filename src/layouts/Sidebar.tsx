@@ -81,15 +81,10 @@ export default function Sidebar({children}: AuthLayoutProps) {
         console.log('click ', e);
       };
     return(
-        <Layout style={{
-            minHeight: '100vh',
-          }}>
+        <Layout style={{ minHeight: '100vh'}}>
             <SiteSider collapsible collapsed={collapsed} onCollapse={onCollapse} breakpoint="xs" width={260} collapsedWidth={120} trigger={null}>
             
-        <MenuSidebar
-        onClick={onClick}
-        items={items}
-       />
+              <MenuSidebar onClick={onClick} items={items}/>
             </SiteSider>
             {children}
         </Layout>

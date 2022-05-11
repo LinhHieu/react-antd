@@ -16,7 +16,7 @@ const columns = [
     {
         title: 'Status',
         dataIndex: 'Status',
-        key: 'Status',
+        key: 'Status'
     },
     {
         title: 'Email',
@@ -36,11 +36,11 @@ const RequiredActionList = (props:any) => {
     return (
         <div>
         <PageHeader title="Action required" extra={[
-            <Search placeholder="input search text" allowClear key="1" onSearch={onSearch} style={{ width: 350 }} />,
-            <DatePicker key="2"  />]}>
+            <Search placeholder="input search text" allowClear key="search" onSearch={onSearch} style={{ width: 350 }} />,
+            <DatePicker key="date"  />]}>
         </PageHeader>
 
-        <Table columns={columns} dataSource={props.data}>
+        <Table columns={columns} dataSource={props.data} pagination={props.pageData}>
 
         </Table>
         </div>

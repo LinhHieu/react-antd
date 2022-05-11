@@ -105,10 +105,16 @@ interface Reponse {
     updatedAt:    Date;
     publishedAt:  Date;
 }
+interface PageNumber {
+    current: number;
+    pageSize: number;
+    total: number;
+}
+
 const Buyer = () => {
     const [userData, setUserData] = useState<Reponse[]>([]);
     const [collapsed, setCollapsed] = useState(false);
-    const [Page, setPage] = useState(null);
+    const [Page, setPage] = useState<PageNumber>();
     const token = localStorage.getItem("Token");
     const onCollapse = (collapsed: boolean) => {
         console.log(collapsed);
@@ -131,9 +137,14 @@ const Buyer = () => {
                         Form: data.attributes.Form,
                         Email: data.attributes.Email,
                     }
-                })
+                });
                 setUserData(DataList);
-                setPage(ResponeValue.meta.pagination.pageSize);
+                const PageData = response.data.meta.pagination;
+                const FetchPageData = {
+                    current: PageData.page ,
+                    pageSize: PageData.pageSize,
+                    total: PageData.total };
+                setPage(FetchPageData);
             })
             .catch(function (error:any) {
             console.log(error);
@@ -143,7 +154,7 @@ const Buyer = () => {
         <Sidebar>
             <Layout>
                 <SiteHeader>
-                    <PageHeader title="Dashboard" extra={[<DatePicker.RangePicker />]}> </PageHeader>
+                    <PageHeader title="Dashboard" extra={[<DatePicker.RangePicker key="DashboardDate"/>]}> </PageHeader>
                 </SiteHeader>
                 <ContentPage>
                     <NumberAnalytic>
